@@ -1,0 +1,1 @@
+Dir["./lib/class/**/*.rb"].each { |m| require m }
