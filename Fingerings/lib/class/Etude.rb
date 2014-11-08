@@ -4,8 +4,10 @@ class Etude
 
     attr_accessor :data
     
+    attr_accessor :output_format
     attr_accessor :verbose
     attr_accessor :verbose_html
+    
     def dbg code
       return unless verbose
       code = "<div>#{code}</div>" if verbose_html
@@ -114,7 +116,6 @@ class Etude
         c << titre_section.strip
         @data.sort_by{|combi, e| combi[2..2]}.each do |combi, data_combi|
           nb = data_combi[:nombre]
-          puts "#{nb} max:#{nombre_max} L min:#{nombre_min}"
           nb = "#{nb} (max)" if nb == nombre_max
           nb = "#{nb} (min)" if nb == nombre_min
           nb = (" " * 5) << nb.to_s # 16
@@ -130,7 +131,13 @@ class Etude
     def print_bilan
       File.unlink bilan_path if File.exists? bilan_path
       File.open(bilan_path, 'wb'){|f| f.write bilan}
-      puts bilan
+      if output_format == :html
+        puts "<div>Fichier #{fingerings_path}</div>"
+        puts "<pre>#{bilan}</pre>"
+      else
+        puts "Fichier : #{fingerings_path}"
+        puts bilan
+      end
     end
     
     

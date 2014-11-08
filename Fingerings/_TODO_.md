@@ -1,0 +1,1 @@
+* Options pour définir le premier exercice et le dernier, en ligne de commande
